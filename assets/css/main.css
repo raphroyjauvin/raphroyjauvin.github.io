@@ -3469,7 +3469,7 @@ input[type="button"]:disabled,
 }
 
 .language-selector > a {
-    color: #ffffff;
+    color:  #0a1a33;
     font-size: 1.5em;
     cursor: pointer;
 }
