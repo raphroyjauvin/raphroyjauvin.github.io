@@ -3514,3 +3514,52 @@ input[type="button"]:disabled,
 .language-selector:hover .language-dropdown {
     display: block;
 }
+
+/* My Story Images */
+.story-image {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 1em;
+}
+
+.story-image.left {
+    float: left;
+    margin-right: 1.5em;
+}
+
+.story-image.right {
+    float: right;
+    margin-left: 1.5em;
+}
+
+.story-image.tall {
+    width: 180px;
+    height: 280px;
+}
+
+.story-section p {
+    text-align: justify;
+}
+
+.story-section::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media screen and (max-width: 736px) {
+    .story-image {
+        float: none;
+        display: block;
+        margin: 0 auto 1em auto;
+        width: 80%;
+        height: auto;
+    }
+    
+    .story-image.tall {
+        width: 60%;
+        height: auto;
+    }
+}
