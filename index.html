@@ -377,12 +377,12 @@
     <p class="section-intro">A selection of my recent GIS work and projects.</p>
 
     <article class="card">
-      <a class="card-thumb" href="images/noahPipeline.svg">
-        <img src="images/noahPipeline.svg" alt="Geospatial data pipeline diagram">
+      <a class="card-thumb" href="images/noahDataEngine.svg">
+        <img src="images/noahDataEngine.svg" alt="Geospatial data engine diagram">
       </a>
       <div>
-        <h3>Geospatial Data Pipeline for Property-Level Flood Risk Modeling</h3>
-        <p>At NOAH Intelligence, I prepare and validate municipal geospatial datasets for use in coupled 1D/2D hydraulic flood simulations. The pipeline involves spatial processing and manual geometry repair in QGIS, automated attribute gap-filling via custom ArcPy script tools, and iterative validation to produce simulation-ready outputs. A custom Python tool I built resolves 98%+ of missing attribute values across municipal infrastructure networks, eliminating weeks of manual derivation.</p>
+        <h3>Municipal Data Engine for Flood Risk Modeling</h3>
+        <p>The automated engine that prepares a municipality's spatial data for flood risk modeling. One run ingests six raw open datasets and carries them through eight stages, from standardization and network splitting to service lateral generation, producing verified, simulation-ready products for four downstream consumers: hydraulic modeling, risk analytics, backend services, and web delivery. Built in PyQGIS with cache-aware selective rebuilds, fail-fast guards, independent auditing, and monitors that watch for silent changes in upstream data.</p>
       </div>
     </article>
 
