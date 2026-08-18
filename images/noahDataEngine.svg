@@ -1,0 +1,129 @@
+<svg viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t d">
+  <title id="t">Municipal data preparation engine</title>
+  <desc id="d">Transit-map style system diagram: six municipal open datasets flow past a refresh guard into an eight-stage automated pipeline — ingest, standardize, clean, connect, generate, condition, verify, package — and fan out as four verified product lines to hydraulic modeling, risk analytics, backend and API, and web delivery.</desc>
+
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="13" cy="13" r="1" fill="#16283C" fill-opacity="0.055"></circle>
+    </pattern>
+  </defs>
+
+  <rect width="1000" height="640" fill="#FDFDFB"></rect>
+  <rect x="19" y="19" width="962" height="602" fill="url(#dots)"></rect>
+  <rect x="18.5" y="18.5" width="963" height="603" fill="none" stroke="#E2E7EB" stroke-width="1"></rect>
+
+  <text x="48" y="66" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="500" fill="#16283C">Municipal data preparation engine</text>
+  <text x="48" y="88" font-family="'IBM Plex Mono', Consolas, monospace" font-size="11.5" fill="#8B96A0">one automated run: open data in, model-ready products out</text>
+  <text x="952" y="66" text-anchor="end" font-family="'IBM Plex Mono', Consolas, monospace" font-size="10.5" fill="#8B96A0">PyQGIS · cache-aware · fail-fast</text>
+
+  <text x="48" y="128" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="12.5" font-weight="500" fill="#4E5D6C">City open data portal</text>
+  <g font-family="'IBM Plex Mono', Consolas, monospace" font-size="11" fill="#4E5D6C" text-anchor="end">
+    <text x="124" y="152">Parcels</text>
+    <text x="124" y="174">Addresses</text>
+    <text x="124" y="196">Buildings</text>
+    <text x="124" y="218">Boundary</text>
+    <text x="124" y="240">Network nodes</text>
+    <text x="124" y="262">Network segments</text>
+  </g>
+  <g fill="#9AA5AE">
+    <rect x="129" y="145.5" width="5" height="5"></rect>
+    <rect x="129" y="167.5" width="5" height="5"></rect>
+    <rect x="129" y="189.5" width="5" height="5"></rect>
+    <rect x="129" y="211.5" width="5" height="5"></rect>
+    <rect x="129" y="233.5" width="5" height="5"></rect>
+    <rect x="129" y="255.5" width="5" height="5"></rect>
+  </g>
+  <g stroke="#9AA5AE" stroke-width="2.25" fill="none" stroke-linecap="round">
+    <path d="M138 148 C176 148 176 203 214 203"></path>
+    <path d="M138 170 C176 170 176 203 214 203"></path>
+    <path d="M138 192 C176 192 176 203 214 203"></path>
+    <path d="M138 214 C176 214 176 203 214 203"></path>
+    <path d="M138 236 C176 236 176 203 214 203"></path>
+    <path d="M138 258 C176 258 176 203 214 203"></path>
+  </g>
+
+  <path d="M214 203 H804 Q834 203 834 233 V303 Q834 333 804 333 H235" fill="none" stroke="#16283C" stroke-width="7" stroke-linecap="round"></path>
+
+  <g stroke="#FDFDFB" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M374.5 198.5 L380.5 203 L374.5 207.5"></path>
+    <path d="M684.5 198.5 L690.5 203 L684.5 207.5"></path>
+    <path d="M829.5 265 L834 271 L838.5 265"></path>
+    <path d="M625.5 328.5 L619.5 333 L625.5 337.5"></path>
+    <path d="M315.5 328.5 L309.5 333 L315.5 337.5"></path>
+  </g>
+
+  <path d="M258 194 L267 203 L258 212 L249 203 Z" fill="#B4432A"></path>
+  <text x="258" y="230" text-anchor="middle" font-family="'IBM Plex Mono', Consolas, monospace" font-size="10" fill="#B4432A">refresh guard</text>
+  <text x="258" y="243" text-anchor="middle" font-family="'IBM Plex Mono', Consolas, monospace" font-size="9.5" fill="#8B96A0">blocks suspicious updates</text>
+
+  <g font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="500" fill="#16283C" text-anchor="middle">
+    <text x="300" y="153">Ingest</text>
+    <text x="455" y="153">Standardize</text>
+    <text x="610" y="153">Clean</text>
+    <text x="765" y="153">Connect</text>
+  </g>
+  <g font-family="'IBM Plex Mono', Consolas, monospace" font-size="10" fill="#8B96A0" text-anchor="middle">
+    <text x="300" y="171">collect + snapshot</text>
+    <text x="300" y="184">six open datasets</text>
+    <text x="455" y="171">common formats,</text>
+    <text x="455" y="184">fields + coordinates</text>
+    <text x="610" y="171">filter, repair +</text>
+    <text x="610" y="184">deduplicate records</text>
+    <text x="765" y="171">match each property</text>
+    <text x="765" y="184">to its infrastructure</text>
+  </g>
+
+  <g font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="500" fill="#16283C" text-anchor="middle">
+    <text x="700" y="285">Generate</text>
+    <text x="545" y="285">Condition</text>
+    <text x="390" y="285">Verify</text>
+    <text x="235" y="285">Package</text>
+  </g>
+  <g font-family="'IBM Plex Mono', Consolas, monospace" font-size="10" fill="#8B96A0" text-anchor="middle">
+    <text x="700" y="303">create missing network</text>
+    <text x="700" y="316">links from codified rules</text>
+    <text x="545" y="303">shape geometry to</text>
+    <text x="545" y="316">simulation standards</text>
+    <text x="390" y="303">every output checked</text>
+    <text x="390" y="316" fill="#B4432A">by an independent audit</text>
+    <text x="235" y="303">versioned, model-ready</text>
+    <text x="235" y="316">deliverables</text>
+  </g>
+
+  <g fill="none" stroke-width="4.5" stroke-linecap="round">
+    <path d="M235 341 V370 Q235 384 249 384 H776 Q790 384 790 398 V496.5" stroke="#1D7A68"></path>
+    <path d="M235 341 V362 Q235 376 249 376 H591 Q605 376 605 390 V496.5" stroke="#6B4E71"></path>
+    <path d="M235 341 V354 Q235 368 249 368 H406 Q420 368 420 382 V496.5" stroke="#B07A2A"></path>
+    <path d="M235 341 V496.5" stroke="#3A6EA5"></path>
+  </g>
+
+  <g fill="#FDFDFB" stroke="#16283C" stroke-width="3">
+    <circle cx="300" cy="203" r="7.5"></circle>
+    <circle cx="455" cy="203" r="7.5"></circle>
+    <circle cx="610" cy="203" r="7.5"></circle>
+    <circle cx="765" cy="203" r="7.5"></circle>
+    <circle cx="700" cy="333" r="7.5"></circle>
+    <circle cx="545" cy="333" r="7.5"></circle>
+    <circle cx="390" cy="333" r="7.5" stroke="#B4432A"></circle>
+    <circle cx="235" cy="333" r="7.5"></circle>
+  </g>
+
+  <circle cx="235" cy="504" r="7.5" fill="#FDFDFB" stroke="#3A6EA5" stroke-width="3.5"></circle>
+  <circle cx="420" cy="504" r="7.5" fill="#FDFDFB" stroke="#B07A2A" stroke-width="3.5"></circle>
+  <circle cx="605" cy="504" r="7.5" fill="#FDFDFB" stroke="#6B4E71" stroke-width="3.5"></circle>
+  <circle cx="790" cy="504" r="7.5" fill="#FDFDFB" stroke="#1D7A68" stroke-width="3.5"></circle>
+  <g font-family="Archivo, 'Helvetica Neue', Arial, sans-serif" font-size="13.5" font-weight="500" fill="#16283C" text-anchor="middle">
+    <text x="235" y="532">Hydraulic modeling</text>
+    <text x="420" y="532">Risk analytics</text>
+    <text x="605" y="532">Backend + API</text>
+    <text x="790" y="532">Web delivery</text>
+  </g>
+  <g font-family="'IBM Plex Mono', Consolas, monospace" font-size="10.5" fill="#8B96A0" text-anchor="middle">
+    <text x="235" y="549">simulation-ready networks</text>
+    <text x="420" y="549">property + building tables</text>
+    <text x="605" y="549">database-ready layers</text>
+    <text x="790" y="549">lightweight web maps</text>
+  </g>
+
+  <text x="952" y="600" text-anchor="end" font-family="'IBM Plex Mono', Consolas, monospace" font-size="11" fill="#4E5D6C">Raphaël Roy-Jauvin · NOAH Intelligence · 2026</text>
+</svg>
