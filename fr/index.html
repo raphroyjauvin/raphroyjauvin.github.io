@@ -1,377 +1,580 @@
-<!DOCTYPE HTML>
-
-<html>
-
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-	<title>Portfolio de Raph</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="../assets/css/main.css" />
-	<meta name="google-site-verification" content="iqchtPBEWRxiUSMsGD6myXT7NhGsQQ9EXLbA5TcbqzI" />
-	<meta name="description"
-		content="Portfolio SIG de Raphaël Roy-Jauvin. Spécialisé en analyse spatiale, ingénierie de données géospatiales et télédétection. Basé à Victoria, C.-B.">
-	<meta name="keywords"
-		content="SIG, cartographie, analyse spatiale, ingénierie de données, Victoria BC, Raphael Roy-Jauvin">
-	<meta name="author" content="Raphaël Roy-Jauvin">
-	<script defer src="https://cloud.umami.is/script.js"
-		data-website-id="6ed89953-c8a1-440d-9214-82a3a2dfa38d"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Raphaël Roy-Jauvin · SIG et urbanisme</title>
+  <meta name="author" content="Raphaël Roy-Jauvin">
+  <meta name="description" content="Portfolio SIG de Raphaël Roy-Jauvin. Spécialisé en analyse spatiale, conception cartographique et planification des transports. Basé à Montréal, QC.">
+  <meta name="keywords" content="SIG, cartographie, analyse spatiale, planification des transports, urbanisme, Montréal, Raphael Roy-Jauvin">
+  <meta name="google-site-verification" content="iqchtPBEWRxiUSMsGD6myXT7NhGsQQ9EXLbA5TcbqzI">
+  <meta property="og:title" content="Raphaël Roy-Jauvin · SIG et urbanisme">
+  <meta property="og:description" content="Pipelines de données spatiales, cartographie et planification des transports.">
+  <meta property="og:image" content="https://www.raphroyjauvin.ca/images/banner.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Archivo:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #16283C;
+      --paper: #FDFDFB;
+      --slate: #4E5D6C;
+      --muted: #8B96A0;
+      --line: #ECEAE3;
+      --accent: #B4432A;
+      --serif: "Newsreader", Georgia, serif;
+      --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+      --mono: "IBM Plex Mono", "Courier New", monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-padding-top: 76px; /* keeps anchored sections clear of the fixed nav */
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--slate);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    .skip {
+      position: absolute;
+      left: -9999px;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 8px 16px;
+      z-index: 100;
+    }
+    .skip:focus { left: 12px; top: 12px; }
+
+    /* ---- top nav: hides on scroll down, returns on scroll up ---- */
+
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px clamp(20px, 4vw, 44px);
+      background: rgba(253, 253, 251, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      transition: transform 0.28s ease;
+    }
+    .topbar.is-hidden { transform: translateY(-100%); }
+
+    .brand {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .brand:hover { text-decoration: none; }
+
+    .nav-cluster { display: flex; align-items: center; gap: 22px; }
+
+    .nav { display: flex; align-items: center; gap: 22px; margin: 0; padding: 0; list-style: none; }
+    .nav a {
+      font-size: 13.5px;
+      letter-spacing: 0.04em;
+      color: var(--slate);
+      padding: 6px 2px;
+    }
+    .nav a:hover { color: var(--ink); text-decoration: none; }
+
+    .lang-divider { width: 1px; height: 16px; background: #DDDAD1; }
+
+    .lang { display: flex; gap: 4px; font-family: var(--mono); font-size: 11.5px; }
+    .lang a { padding: 3px 8px; border-radius: 5px; color: var(--muted); }
+    .lang a:hover { color: var(--ink); text-decoration: none; }
+    .lang a.active { background: var(--ink); color: var(--paper); }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      padding: 6px;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    /* ---- hero ---- */
+
+    .hero { position: relative; }
+
+    .hero-media {
+      position: relative;
+      height: min(56vh, 520px);
+      overflow: hidden;
+    }
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(253, 253, 251, 0) 25%,
+        rgba(253, 253, 251, 0.88) 74%,
+        var(--paper) 100%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+      margin: -170px auto 0;
+      padding: 0 clamp(20px, 4vw, 44px);
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+
+    .hero-inner h1 {
+      font-size: clamp(34px, 6vw, 48px);
+      margin: 0 0 10px;
+    }
+
+    .tagline {
+      font-size: clamp(15px, 2.4vw, 17px);
+      color: var(--slate);
+      margin: 0 0 20px;
+    }
+
+    .summary {
+      max-width: 640px;
+      font-size: 15px;
+      margin: 0 0 14px;
+    }
+
+    .toolbox {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--muted);
+      margin: 0 0 26px;
+    }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .btn {
+      display: inline-block;
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 11px 22px;
+      border-radius: 7px;
+    }
+    .btn:hover { text-decoration: none; }
+    .btn-primary { background: var(--ink); color: var(--paper); }
+    .btn-primary:hover { background: #223751; }
+    .btn-ghost { color: var(--ink); border: 1px solid #C9CFD6; }
+    .btn-ghost:hover { border-color: var(--ink); }
+
+    /* ---- shared section layout ---- */
+
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 64px clamp(20px, 4vw, 44px) 8px;
+    }
+    .wrap h2 { font-size: clamp(26px, 4vw, 32px); margin: 0 0 8px; }
+    .section-intro { margin: 0 0 32px; max-width: 640px; }
+
+    .anchor-alias { position: relative; top: -1px; }
+
+    /* ---- project cards ---- */
+
+    .card {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 26px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #FFFFFF;
+      margin-bottom: 18px;
+    }
+    .card-thumb img {
+      width: 100%;
+      height: 165px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      display: block;
+      background: #EEF2F5;
+    }
+    .card h3 { font-size: 20px; margin: 0 0 8px; }
+    .card p { font-size: 14.5px; margin: 0 0 12px; }
+    .card-links { font-size: 13.5px; font-weight: 500; }
+    .card-links .sep { color: #C9CFD6; margin: 0 9px; }
+
+    /* ---- story ---- */
+
+    .story-flow { max-width: 720px; }
+    .story-flow::after { content: ""; display: block; clear: both; }
+    .story-flow p { margin: 0 0 22px; font-size: 15px; }
+    .story-img {
+      width: min(240px, 42%);
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      display: block;
+    }
+    .f-right { float: right; margin: 4px 0 18px 26px; }
+    .f-left { float: left; margin: 4px 26px 18px 0; }
+
+    /* ---- resume ---- */
+
+    .resume-block h3 {
+      font-size: 21px;
+      margin: 40px 0 18px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .entry { margin: 0 0 26px; max-width: 720px; }
+    .entry-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      margin: 0 0 2px;
+    }
+    .entry-meta { font-size: 13.5px; color: var(--muted); margin: 0 0 6px; }
+    .entry p { font-size: 14.5px; margin: 0; }
+    .roles { font-style: italic; }
+
+    /* ---- contact + footer ---- */
+
+    .contact-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+
+    footer {
+      margin-top: 72px;
+      border-top: 1px solid var(--line);
+      padding: 26px clamp(20px, 4vw, 44px) 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .foot-note { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+    .foot-links { display: flex; gap: 18px; font-family: var(--mono); font-size: 11.5px; }
+    .foot-links a { color: var(--slate); }
+    .foot-links a:hover { color: var(--ink); }
+
+    /* ---- mobile ---- */
+
+    @media (max-width: 780px) {
+      .menu-btn { display: block; }
+      .nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        background: var(--paper);
+        border-bottom: 1px solid var(--line);
+        padding: 8px 20px 16px;
+      }
+      .nav.open { display: flex; }
+      .nav a { display: block; padding: 12px 2px; font-size: 15px; width: 100%; }
+      .lang-divider { display: none; }
+      .card { grid-template-columns: 1fr; }
+      .card-thumb img { height: 190px; }
+      .story-img { width: 100%; float: none; margin: 4px 0 18px; }
+      .hero-inner { margin-top: -130px; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .topbar { transition: none; }
+    }
+  </style>
 </head>
+<body>
 
-<body class="is-preload">
+<a class="skip" href="#work">Aller au contenu</a>
 
-	<!-- Header -->
-	<section id="header">
-		<header>
-			<span class="image avatar"><img src="../images/avatar.jpg" alt="" /></span>
-			<h1 id="logo"><a href="#">Raphaël Roy-Jauvin</a></h1>
-			<p>Technicien SIG sénior<br />
-				Analyse spatiale et ingénierie de données<br />
-				Victoria BC, Canada</p>
-		</header>
-		<nav id="nav">
-			<ul>
-				<li><a href="#about" class="active">À propos</a></li>
-				<li><a href="#skills">Compétences</a></li>
-				<li><a href="#mystory">Mon parcours</a></li>
-				<li><a href="#resume">CV</a></li>
-				<li><a href="#recentwork">Travaux Récents</a></li>
-				<li><a href="#contact">Contact</a></li>
-			</ul>
-		</nav>
-		<footer>
-			<ul class="icons">
-				<li><a href="https://www.linkedin.com/in/rroyjauvin" class="icon brands fa-linkedin"><span
-							class="label">LinkedIn</span></a></li>
-				<li><a href="https://github.com/raphroyjauvin" class="icon brands fa-github"><span
-							class="label">Github</span></a></li>
-				<li><a href="mailto:rroyjauvin@gmail.com" class="icon solid fa-envelope"><span
-							class="label">Courriel</span></a></li>
-				<li><a href="https://www.arcgis.com/home/user.html?user=2026_gist_rroyjauvin"
-						class="icon solid fa-globe"><span class="label">ArcGIS Online</span></a></li>
-			</ul>
-			<div class="language-selector">
-				<a href="#" class="icon solid fa-language"><span class="label">Language</span></a>
-				<ul class="language-dropdown">
-					<li><a href="../index.html">🇬🇧 Eng</a></li>
-					<li><a href="index.html">🇫🇷 Fr</a></li>
-					<li><a href="../de/index.html">🇩🇪 De</a></li>
-				</ul>
-			</div>
-		</footer>
-	</section>
+<header class="topbar" id="topbar">
+  <a class="brand" href="#top">Raphaël Roy-Jauvin</a>
+  <div class="nav-cluster">
+    <button class="menu-btn" id="menuBtn" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navList">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+    <ul class="nav" id="navList">
+      <li><a href="#work">Projets</a></li>
+      <li><a href="#story">Parcours</a></li>
+      <li><a href="#resume">CV</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <span class="lang-divider" aria-hidden="true"></span>
+    <nav class="lang" aria-label="Langue">
+      <a href="../index.html" lang="en">EN</a>
+      <a class="active" href="index.html" aria-current="page">FR</a>
+      <a href="../de/index.html" lang="de">DE</a>
+    </nav>
+  </div>
+</header>
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+<main id="top">
 
-		<!-- Main -->
-		<div id="main">
+  <!-- hero: banner photo fades into the page, name block sits in the fade zone -->
+  <section class="hero" id="about">
+    <div class="hero-media">
+      <img src="../images/banner.jpeg" alt="Vue sur le port à travers une façade vitrée">
+      <div class="hero-fade" aria-hidden="true"></div>
+    </div>
+    <div class="hero-inner">
+      <p class="eyebrow">45,50° N, 73,57° O · Montréal, QC</p>
+      <h1>Raphaël Roy-Jauvin</h1>
+      <p class="tagline">Planification environnementale et urbanisme · Expertise géospatiale</p>
+      <p class="summary">Bienvenue! Je suis un professionnel en géomatique chez NOAH Intelligence, une startup en technologies climatiques où je transforme des données municipales brutes en pipelines qui alimentent la modélisation de risques d’inondation à l’échelle de la propriété. Je poursuis également ma maîtrise en urbanisme à McGill, afin d’appliquer mon expertise technique à des enjeux de planification plus larges. N’hésitez pas à me contacter si vous souhaitez travailler avec moi!</p>
+      <!-- delete the next line if the toolbox feels redundant -->
+      <p class="toolbox" id="skills">QGIS · ArcGIS Pro · Python (PyQGIS, ArcPy) · PostGIS · FME · ArcGIS Online</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#work">Voir mes projets</a>
+        <a class="btn btn-ghost" href="../files/resume.pdf">Télécharger mon CV</a>
+      </div>
+    </div>
+  </section>
 
-			<!-- One -->
-			<section id="about">
-				<div class="image main" data-position="center">
-					<img src="../images/banner.jpeg" alt="" />
-				</div>
-				<div class="container">
-					<header class="major">
-						<h2>Bonjour/Hello/Guten Tag</h2>
-						<p>Bienvenue sur mon portfolio.<br />
-							Vous y trouverez quelques-uns de mes projets récents.<br />
-							N'hésitez pas à me contacter!</p>
-					</header>
-					<p>J'ai développé une passion pour les SIG et la télédétection lors de mon baccalauréat à UBC.
-						Depuis, j'ai travaillé en géomatique dans divers secteurs, de la classification écologique des
-						paysages au Yukon à la planification d'infrastructures de télécommunications en Allemagne. Je
-						termine actuellement le diplôme avancé en SIG du BCIT tout en travaillant comme technicien SIG
-						sénior chez NOAH Intelligence, une startup torontoise où je construis des pipelines de données
-						géospatiales pour la modélisation de risques d'inondation à l'échelle de la propriété.</p>
-				</div>
-			</section>
+  <!-- projects: content carried over verbatim from the previous site -->
+  <section class="wrap" id="work">
+    <span class="anchor-alias" id="recentwork"></span>
+    <h2>Travaux récents</h2>
+    <p class="section-intro">Une sélection de mes projets et travaux récents en SIG.</p>
 
-			<!-- Two -->
-			<section id="skills">
-				<div class="container">
-					<h3>Compétences</h3>
-					<p>Compétences clés développées dans plusieurs secteurs.</p>
-					<ul class="feature-icons">
-						<li class="icon solid fa-map">ArcGIS Pro, QGIS et ArcGIS Online</li>
-						<li class="icon solid fa-search-location">Analyse spatiale</li>
-						<li class="icon solid fa-drafting-compass">Conception cartographique</li>
-						<li class="icon solid fa-satellite">Télédétection</li>
-						<li class="icon solid fa-code">Python, ArcPy, PyQGIS, SQL</li>
-						<li class="icon solid fa-language">Trilingue : FR / EN / DE</li>
-					</ul>
-				</div>
-			</section>
+    <article class="card">
+      <a class="card-thumb" href="../images/noahDataEngine.svg">
+        <img src="../images/noahDataEngine.svg" alt="Diagramme du moteur de données géospatiales">
+      </a>
+      <div>
+        <h3>Moteur de données municipales pour la modélisation de risques d’inondation</h3>
+        <p>Le moteur automatisé qui prépare les données spatiales d’une municipalité pour la modélisation de risques d’inondation. Chaque exécution ingère six jeux de données ouvertes brutes et les fait passer par huit étapes, de la standardisation et du découpage des réseaux jusqu’à la génération des branchements de service, produisant des livrables vérifiés et prêts pour la simulation, destinés à quatre consommateurs en aval : modélisation hydraulique, analytique de risque, services backend et diffusion web. Développé en PyQGIS avec reconstructions sélectives par mise en cache, garde-fous à arrêt immédiat, audit indépendant et moniteurs qui surveillent les changements silencieux dans les données sources.</p>
+      </div>
+    </article>
 
-			<!-- Three -->
-			<section id="mystory">
-				<div class="container">
-					<h3>Mon parcours</h3>
-					<div class="story-section">
+    <article class="card">
+      <a class="card-thumb" href="https://arcg.is/1naGaD2">
+        <img src="../images/ottawaMontrealThumbnail.jpg" alt="Carte de l’analyse du corridor ferroviaire Ottawa-Montréal">
+      </a>
+      <div>
+        <h3>Analyse du corridor ferroviaire à grande vitesse ALTO Ottawa-Montréal</h3>
+        <p>Une analyse spatiale du premier segment ferroviaire à grande vitesse annoncé au Canada. Évaluation des bassins de population, de la composition de l’utilisation du sol et de l’accessibilité des gares le long du corridor Ottawa-Montréal de 200 km à partir de données du Recensement, de l’inventaire des cultures d’AAC et d’OpenStreetMap.</p>
+        <p class="card-links"><a href="https://arcg.is/1naGaD2">Voir la StoryMap</a></p>
+      </div>
+    </article>
 
-						<img src="../images/yukonSelfie.JPG" alt="Yukon" class="story-image left" />
-						<p>Originaire du Québec, ma famille a déménagé à Whitehorse, au Yukon, quand j'avais huit ans.
-							Grandir dans le Nord m'a donné très tôt une appréciation pour le plein air et les enjeux
-							environnementaux, ce qui m'a éventuellement mené à un baccalauréat en conservation des
-							ressources naturelles à UBC. C'est là que j'ai découvert les SIG, un domaine qui a
-							immédiatement résonné avec mon amour de la résolution de problèmes techniques et de la
-							pensée globale. J'ai eu la chance d'acquérir une expérience pratique au studio de
-							télédétection intégrée de UBC, en soutenant la recherche des étudiants diplômés en
-							télédétection et en analyse SIG.</p>
+    <article class="card">
+      <a class="card-thumb" href="https://arcg.is/1qjnbe">
+        <img src="../images/vancouverResponseThumbnail.jpg" alt="Carte de l’analyse de réseau des temps de réponse ambulanciers du Grand Vancouver">
+      </a>
+      <div>
+        <h3>Temps de réponse ambulanciers dans le Grand Vancouver : une analyse de réseau</h3>
+        <p>Une analyse basée sur un réseau routier évaluant les temps de réponse ambulanciers et l’exposition de la population par rapport aux normes provinciales d’intervention d’urgence, selon différents scénarios de circulation. En combinant une analyse de réseau SIG avec mon expérience dans les services d’urgence, j’ai modélisé la couverture des services médicaux d’urgence dans la région métropolitaine de Vancouver, quantifiant combien de résidents se trouvent à l’intérieur (et au-delà) des seuils critiques de temps de réponse.</p>
+        <p class="card-links"><a href="https://arcg.is/1qjnbe">Voir la StoryMap</a><span class="sep">·</span><a href="https://www.arcgis.com/apps/dashboards/619d724e4a764f61a81c6a699dc21f17">Voir le tableau de bord</a><span class="sep">·</span><a href="../files/Ambulance_Response_Analysis_GVRD.pdf">Lire l’étude</a></p>
+      </div>
+    </article>
 
-						<p>Après l'obtention de mon diplôme, j'ai travaillé pour le gouvernement du Yukon comme
-							technicien SIG au programme de classification écologique des paysages, combinant travail de
-							terrain estival et production de cartes écologiques.</p>
+    <article class="card">
+      <a class="card-thumb" href="../images/victoriaLRT.jpg">
+        <img src="../images/victoriaLrtThumbnail.jpg" alt="Carte de l’analyse de faisabilité du train léger de Victoria">
+      </a>
+      <div>
+        <h3>Analyse de faisabilité du TLR de Victoria</h3>
+        <p>Un projet explorant des tracés potentiels de train léger pour la région métropolitaine de Victoria. Analyse par superposition pondérée combinant la densité de population, la densité des arrêts de transport en commun, la proximité du corridor ferroviaire E&amp;N et la distance des centres d’activités pour identifier les zones à forte demande et proposer deux options de tracé.</p>
+        <p class="card-links"><a href="../images/victoriaLRT.jpg">Voir la carte</a></p>
+      </div>
+    </article>
 
-						<img src="../images/munichSelfie.jpg" alt="Munich" class="story-image right" />
-						<p>Souhaitant vivre à l'étranger, j'ai ensuite déménagé à Munich, en Allemagne, où j'ai
-							travaillé comme planificateur SIG pour MRK Media AG, contribuant au déploiement
-							d'infrastructures de fibre optique dans le sud de l'Allemagne.</p>
+    <article class="card">
+      <a class="card-thumb" href="../images/GermanyRail.png">
+        <img src="../images/GermanyRailThumbnail.jpg" alt="Carte du réseau ferroviaire allemand">
+      </a>
+      <div>
+        <h3>Réseau ferroviaire en Allemagne</h3>
+        <p>J’ai créé une carte haute résolution du réseau ferroviaire allemand en extrayant des données d’OpenStreetMap avec Python et en les visualisant avec Matplotlib, puis j’ai exporté les couches nettoyées en GeoPackage pour une intégration facile dans ArcGIS Pro.</p>
+        <p class="card-links"><a href="../images/GermanyRail.png">Voir la carte</a></p>
+      </div>
+    </article>
+  </section>
 
-						<p>À mon retour au Canada, je cherchais quelque chose de différent : un défi professionnel qui
-							mettrait ma résilience à l'épreuve et offrirait un impact immédiat et tangible. Cela m'a
-							attiré vers les services d'urgence. Ce qui avait commencé comme un détour du travail de
-							bureau est devenu une carrière avec BC Emergency Health Services, d'abord comme paramédic,
-							puis comme superviseur de répartition.</p>
+  <!-- story -->
+  <section class="wrap" id="story">
+    <span class="anchor-alias" id="mystory"></span>
+    <h2>Mon parcours</h2>
+    <div class="story-flow">
+      <img class="story-img f-left" src="../images/NYSelfie.jpg" alt="Dans une rue de New York">
+      <p>Originaire du Québec, ma famille a déménagé à Whitehorse, au Yukon, quand j’avais huit ans. Grandir dans le Nord m’a donné très tôt une appréciation pour le plein air et les enjeux environnementaux, ce qui m’a éventuellement mené à un baccalauréat en conservation des ressources naturelles à UBC. C’est là que j’ai découvert les SIG, un domaine qui a immédiatement résonné avec mon amour de la résolution de problèmes techniques et de la pensée globale. J’ai eu la chance d’acquérir une expérience pratique au studio de télédétection intégrée de UBC, en soutenant la recherche des étudiants diplômés en télédétection et en analyse SIG.</p>
+      <p>Après l’obtention de mon diplôme, j’ai travaillé pour le gouvernement du Yukon comme technicien SIG au programme de classification écologique des paysages, combinant travail de terrain estival et production de cartes écologiques.</p>
+      
+      <p>Souhaitant vivre à l’étranger, j’ai ensuite déménagé à Munich, en Allemagne, où j’ai travaillé comme planificateur SIG pour MRK Media AG, contribuant au déploiement d’infrastructures de fibre optique dans le sud de l’Allemagne.</p>
+      
+      <p>De retour au Canada et en quête d’un changement de rythme, j’ai passé quelque temps dans les services d’urgence avec BC Emergency Health Services, où j’ai constaté de première main comment l’infrastructure et les risques environnementaux façonnent la vie des gens. Quand est venu le temps de revenir à la géomatique à temps plein, j’ai affûté mes compétences avec le certificat avancé en SIG du BCIT et je me suis joint à NOAH Intelligence, où je développe les pipelines de données géospatiales derrière les modèles de risques d’inondation à l’échelle de la propriété. Aujourd’hui, je suis établi à Montréal, où je complète ma maîtrise en urbanisme à McGill, appliquant cette base technique à des questions plus larges sur la croissance et la mobilité des villes. J’ai très hâte de voir ce que l’avenir me réserve.</p>
+    </div>
+  </section>
 
-						<img src="../images/NYSelfie.jpg" alt="New York" class="story-image right tall" />
-						<p>Les services d'urgence m'ont apporté un travail significatif, de la résilience et des
-							compétences en leadership, mais ils ont aussi changé ma perspective. Intervenir dans des
-							communautés diversifiées m'a permis de comprendre de première main comment l'infrastructure
-							et les risques environnementaux façonnent la vie des gens. Ayant accompli ce que je m'étais
-							fixé dans les services d'urgence, il était temps de renouer avec les SIG — cette fois en
-							appliquant ces compétences à la compréhension et à l'atténuation des risques réels grâce à
-							la technologie géospatiale.</p>
+  <!-- resume: carried over verbatim, to be updated later -->
+  <section class="wrap" id="resume">
+    <h2>CV</h2>
+    <p class="section-intro"><a class="btn btn-ghost" href="../files/resume.pdf">Télécharger le PDF</a></p>
 
-						<p>Je termine actuellement le diplôme avancé en SIG du BCIT tout en travaillant chez NOAH
-							Intelligence, où je prépare les jeux de données géospatiales qui alimentent des modèles de
-							risques d'inondation à l'échelle de la propriété. J'ai très hâte de voir ce que l'avenir me
-							réserve.</p>
+    <div class="resume-block">
+      <h3>Formation</h3>
 
-					</div>
-				</div>
-			</section>
+      <div class="entry">
+        <p class="entry-title">Maîtrise en urbanisme</p>
+        <p class="entry-meta">Université McGill | Montréal, QC | 2026 – aujourd’hui</p>
+      </div>
 
-			<!-- Four -->
-			<section id="resume">
-				<div class="container">
-					<h3>CV</h3>
-					<ul class="actions">
-						<li><a href="../files/resumefr.pdf" class="button primary icon solid fa-download">Télécharger
-								PDF</a>
-						</li>
-					</ul>
+      <div class="entry">
+        <p class="entry-title">Certificat avancé en systèmes d’information géographique</p>
+        <p class="entry-meta">British Columbia Institute of Technology | En ligne | Septembre 2025 – juillet 2026</p>
+      </div>
 
-					<h4>Formation</h4>
+      <div class="entry">
+        <p class="entry-title">Baccalauréat en sciences — Conservation des ressources naturelles</p>
+        <p class="entry-meta">University of British Columbia | Vancouver, C.-B. | 2008–2012</p>
+        <p>Tableau d’honneur du doyen</p>
+      </div>
 
-					<h5>Diplôme avancé en systèmes d'information géographique</h5>
-					<p><strong>British Columbia Institute of Technology</strong> | En ligne | Prévu 2026<br />
-						Cours : Fondements des SIG, Cartographie, Programmation SIG, CAO pour SIG, Bases de données,
-						Télédétection, Analyse spatiale</p>
+      <h3>Expérience professionnelle pertinente</h3>
 
-					<h5>Baccalauréat en sciences — Conservation des ressources naturelles</h5>
-					<p><strong>University of British Columbia</strong> | Vancouver, C.-B. | 2008–2012<br />
-						Tableau d'honneur du doyen<br />
-						Cours : Aménagement du territoire, SIG de base et avancé, Télédétection, Cartographie</p>
+      <div class="entry">
+        <p class="entry-title">Technicien SIG sénior | <a href="https://noahintelligence.com/">NOAH Intelligence Inc.</a> | Février 2026 – aujourd’hui</p>
+        <p>Seul spécialiste SIG d’une startup en technologies climatiques, responsable de la couche de données spatiales municipales derrière les modèles de risques d’inondation à l’échelle de la propriété, des données ouvertes brutes des villes jusqu’aux produits prêts pour le modèle hydraulique et le portail web, en passant par des pipelines automatisés. Conception et développement de pipelines PyQGIS automatisés qui convertissent les données d’infrastructure à l’échelle de la ville en produits standardisés et audités automatiquement, avec surveillance de la fraîcheur des données. Développement d’une boîte à outils QGIS Processing réutilisable qui encode les règles d’ingénierie hydraulique de l’équipe, de la génération des branchements de service à un outil de comblement de lacunes ayant résolu 98 %+ des valeurs d’attributs manquantes dans les réseaux d’infrastructures municipales. Établissement des normes de données spatiales de l’entreprise, dont les conventions de SRC et les règles d’assurance qualité maintenant suivies par toute l’équipe. Conception de la symbologie des cartes d’inondation et d’un flux de généralisation cartographique qui réduit des couches d’inondation de plusieurs millions de sommets à des tailles diffusables sur le web.</p>
+      </div>
 
-					<h4>Expérience SIG</h4>
+      <div class="entry">
+        <p class="entry-title">Planificateur SIG en télécommunications | MRK Media AG | Munich, Allemagne | 2016–2017</p>
+        <p>Conception de plans d’infrastructure de fibre optique à l’aide d’outils SIG. Création de produits cartographiques et de documentation technique pour les équipes d’ingénierie et les approbations de planification.</p>
+      </div>
 
-					<h5>Technicien SIG sénior et architecte géospatial | <a href="https://www.noahintelligence.com" target="_blank">Noah Intelligence Inc.</a> | Télétravail | 2026–Présent</h5>
-					<p>Préparation et validation de jeux de données géospatiales municipaux à grande échelle pour la
-						modélisation de risques d'inondation à l'échelle de la propriété via simulation hydraulique
-						couplée 1D/2D (InfoWorks ICM). Développement de flux de travail automatisés dans QGIS et ArcPy
-						pour assurer l'intégrité des données sur plusieurs zones d'étude municipales. Conception et
-						déploiement d'un outil Python personnalisé ayant résolu 98 %+ des valeurs d'attributs manquantes
-						dans les réseaux d'infrastructures municipales, éliminant des semaines de dérivation manuelle.
-						Rédaction de propositions pour la gestion des données SIG et l'optimisation du pipeline afin
-						d'améliorer l'efficacité et de soutenir la croissance.</p>
+      <div class="entry">
+        <p class="entry-title">Spécialiste SIG en classification des paysages | Gouvernement du Yukon | 2012–2013</p>
+        <p>Maintenance de géodatabases et création de cartes écologiques thématiques. Analyse spatiale pour la classification des paysages. Participation aux travaux de terrain et à la collecte de données écologiques.</p>
+      </div>
 
-					<h5>Planificateur SIG en télécommunications | MRK Media AG | Munich, Allemagne | 2016–2017</h5>
-					<p>Conception de plans d'infrastructure de fibre optique à l'aide d'outils SIG. Création de produits
-						cartographiques et de documentation technique pour les équipes d'ingénierie et les approbations
-						de planification.</p>
+      <div class="entry">
+        <p class="entry-title">Assistant en télédétection et SIG | University of British Columbia | 2008–2012</p>
+        <p>Soutien à la recherche des étudiants diplômés en télédétection. Co-auteur d’une <a href="../files/coops_royjauvin_study.pdf">étude évaluée par les pairs</a> sur la migration des espèces d’arbres induite par les changements climatiques. Production de cartes d’étendue d’habitat sous différents scénarios climatiques.</p>
+      </div>
 
-					<h5>Spécialiste SIG en classification des paysages | Gouvernement du Yukon | 2012–2013</h5>
-					<p>Maintenance de géodatabases et création de cartes écologiques thématiques. Analyse spatiale pour
-						la classification des paysages. Participation aux travaux de terrain et à la collecte de données
-						écologiques.</p>
+      <h3>Autre expérience professionnelle</h3>
 
-					<h5>Assistant en télédétection et SIG | University of British Columbia | 2008–2012</h5>
-					<p>Soutien à la recherche des étudiants diplômés en télédétection. <a
-							href="../files/coops_royjauvin_study.pdf" target="_blank">Co-auteur d'une étude évaluée par
-							les pairs</a> sur les changements climatiques et la migration des espèces d'arbres.
-						Production de cartes d'étendue d'habitat sous différents scénarios climatiques.</p>
+      <div class="entry">
+        <p class="entry-title">BC Emergency Health Services | Victoria, C.-B. | 2017–2026</p>
+        <p class="entry-meta roles">Superviseur de répartition (2024–2026) | Répartiteur médical d’urgence (2018–2024) | Paramédic (2017–2018)</p>
+        <p>Direction opérationnelle d’une équipe de 12 répartiteurs. Coordination des interventions multi-agences sur l’île de Vancouver à l’aide de logiciels de répartition géolocalisés et d’analyses situationnelles en temps réel. En tant que paramédic, intervention lors d’urgences médicales incluant l’évaluation, le traitement et le transport des patients.</p>
+      </div>
 
-					<h4>Autre expérience professionnelle</h4>
+      <h3>Réalisations supplémentaires</h3>
 
-					<h5>BC Emergency Health Services | Victoria, C.-B. | 2017–Présent</h5>
-					<p><em>Superviseur de répartition (2024–Présent) | Répartiteur médical d'urgence (2018–2024) |
-							Paramédic (2017–2018)</em><br />
-						Direction opérationnelle d'une équipe de 12 répartiteurs. Coordination des interventions
-						multi-agences sur l'île de Vancouver à l'aide de logiciels de répartition géolocalisés et
-						d'analyses situationnelles en temps réel. En tant que paramédic, intervention lors d'urgences
-						médicales incluant l'évaluation, le traitement et le transport des patients.</p>
+      <div class="entry">
+        <p class="entry-title">Certification de langue allemande C1</p>
+        <p class="entry-meta">Goethe-Institut | Montréal, QC | 2025</p>
+      </div>
 
-					<h4>Réalisations supplémentaires</h4>
+      <div class="entry">
+        <p class="entry-title">Certification de paramédic en soins primaires</p>
+        <p class="entry-meta">Justice Institute of British Columbia | Victoria, C.-B. | 2016</p>
+      </div>
 
-					<p><strong>Certification FME Form Basic et FME Integrate Spatial Data</strong><br />
-						Safe Software | Décembre 2025</p>
+      <div class="entry">
+        <p class="entry-title">Prix du Commissaire du Yukon pour bravoure</p>
+        <p class="entry-meta">Whitehorse, Yukon | 2013</p>
+        <p>Reconnu pour avoir porté secours lors d’un accident d’hélicoptère en région éloignée alors que j’étais moi-même gravement blessé.</p>
+      </div>
+    </div>
+  </section>
 
-					<p><strong>Certification de langue allemande C1</strong><br />
-						Goethe Institut | Montréal, QC | 2025</p>
+  <section class="wrap" id="contact">
+    <h2>Me contacter</h2>
+    <p class="section-intro">Intéressé à collaborer ou avez-vous une question? N’hésitez pas à me contacter.</p>
+    <div class="contact-ctas">
+      <a class="btn btn-primary" href="mailto:rroyjauvin@gmail.com">M’écrire</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/rroyjauvin">LinkedIn</a>
+    </div>
+  </section>
 
-					<p><strong>Certification de paramédic en soins primaires</strong><br />
-						Justice Institute of British Columbia | Victoria, C.-B. | 2016</p>
+</main>
 
-					<p><strong>Prix du Commissaire du Yukon pour bravoure</strong><br />
-						Whitehorse, Yukon | 2013 <br />
-						Reconnu pour avoir porté secours lors d'un accident d'hélicoptère en région éloignée alors que
-						j'étais moi-même gravement blessé.</p>
+<footer>
+  <span class="foot-note">© Raphaël Roy-Jauvin. Tous droits réservés.</span>
+  <nav class="foot-links" aria-label="Profils">
+    <a href="https://www.linkedin.com/in/rroyjauvin">LinkedIn</a>
+    <a href="https://github.com/raphroyjauvin">GitHub</a>
+    <a href="mailto:rroyjauvin@gmail.com">Courriel</a>
+    <a href="https://www.arcgis.com/home/user.html?user=2026_gist_rroyjauvin">ArcGIS Online</a>
+  </nav>
+</footer>
 
-				</div>
-			</section>
-			<!-- Five -->
-			<section id="recentwork">
-				<div class="container">
-					<h3>Travaux Récents</h3>
-					<p>Une sélection de mes projets et travaux récents en SIG.</p>
-					<div class="features">
+<script>
+  // nav: hide on scroll down, bring back on scroll up
+  (function () {
+    var bar = document.getElementById("topbar");
+    var lastY = 0;
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY;
+      if (y > lastY + 4 && y > 90) {
+        bar.classList.add("is-hidden");
+      } else if (y < lastY - 4 || y <= 90) {
+        bar.classList.remove("is-hidden");
+      }
+      lastY = y;
+    }, { passive: true });
+  })();
 
-						<article>
-							<a href="../images/noahPipeline.svg" class="image" target="_blank"><img
-									src="../images/noahPipeline.svg"
-									alt="Pipeline de données géospatiales pour la modélisation de risques d'inondation" /></a>
-							<div class="inner">
-								<h4>Pipeline de données géospatiales pour la modélisation de risques d'inondation</h4>
-								<p>Chez NOAH Intelligence, je prépare et valide des jeux de données géospatiales
-									municipaux pour des simulations hydrauliques couplées 1D/2D. Le pipeline comprend
-									le traitement spatial et la réparation manuelle de géométries dans QGIS,
-									le remplissage automatisé de lacunes d'attributs via des outils ArcPy personnalisés,
-									et une validation itérative pour produire des sorties prêtes pour la simulation.
-									Un outil Python personnalisé que j'ai développé résout 98 %+ des valeurs d'attributs
-									manquantes dans les réseaux d'infrastructures municipales, éliminant des semaines de
-									dérivation manuelle.</p>
-							</div>
-						</article>
-
-						<article>
-							<a href="https://arcg.is/1naGaD2" class="image" target="_blank"><img
-									src="../images/ottawaMontrealThumbnail.jpg"
-									alt="Ottawa Montreal Rail Analysis" /></a>
-							<div class="inner">
-								<h4>Analyse du corridor ferroviaire à grande vitesse ALTO</h4>
-								<p>Une analyse spatiale du premier segment ferroviaire à grande vitesse annoncé au
-									Canada. Évaluation des bassins de population, de la composition de l'utilisation du
-									sol et de l'accessibilité des gares le long du corridor Ottawa-Montréal de 200 km à
-									partir de données du Recensement, de l'inventaire des cultures d'AAC et
-									d'OpenStreetMap.</p>
-								<ul class="actions">
-									<li><a href="https://arcg.is/1naGaD2" class="button small" target="_blank">Voir
-											StoryMap</a></li>
-								</ul>
-							</div>
-						</article>
-
-						<article>
-							<a href="https://arcg.is/1qjnbe" class="image" target="_blank"><img
-									src="../images/vancouverResponseThumbnail.jpg"
-									alt="GVRD Network Analysis" /></a>
-							<div class="inner">
-								<h4>Temps de réponse ambulanciers dans le district régional du Grand Vancouver: une
-									analyse de réseau</h4>
-								<p>Une analyse basée sur un réseau routier évaluant les temps de réponse ambulanciers et
-									l'exposition de la population par rapport aux normes provinciales d'intervention
-									d'urgence. En combinant une analyse de réseau SIG avec mon expérience dans les
-									services d'urgence, j'ai modélisé la couverture des services médicaux d'urgence dans
-									la région métropolitaine de Vancouver, quantifiant combien de résidents se trouvent
-									à l'intérieur (et au-delà) des seuils critiques de temps de réponse.</p>
-								<ul class="actions">
-									<li><a href="https://arcg.is/1qjnbe" class="button small" target="_blank">Voir
-											StoryMap</a></li>
-									<li><a href="https://www.arcgis.com/apps/dashboards/619d724e4a764f61a81c6a699dc21f17"
-											class="button small" target="_blank">Voir
-											Dashboard</a></li>
-									<li><a href="../files/Ambulance_Response_Analysis_GVRD.pdf" class="button small"
-											target="_blank">Lire l'étude</a></li>
-								</ul>
-							</div>
-						</article>
-						<article>
-							<a href="../images/victoriaLRT.jpg" class="image" target="_blank"><img
-									src="../images/victoriaLrtThumbnail.jpg"
-									alt="Analyse de faisabilité du TLR de Victoria" /></a>
-							<div class="inner">
-								<h4>Analyse de faisabilité du TLR de Victoria</h4>
-								<p>Un projet explorant des tracés potentiels de train léger pour la région
-									métropolitaine de Victoria. Analyse par superposition pondérée combinant la densité
-									de population, la densité des arrêts de transport en commun, la proximité du
-									corridor ferroviaire E&N et la distance des centres d'activités pour identifier les
-									zones à forte demande et proposer deux options de tracé.</p>
-								<ul class="actions">
-									<li><a href="../images/victoriaLRT.jpg" class="button small" target="_blank">Voir la
-											carte</a></li>
-								</ul>
-							</div>
-						</article>
-
-						<article>
-							<a href="../images/GermanyRail.png" class="image" target="_blank"><img
-									src="../images/GermanyRailThumbnail.jpg"
-									alt="Réseau ferroviaire en Allemagne" /></a>
-							<div class="inner">
-								<h4>Réseau ferroviaire en Allemagne</h4>
-								<p>J'ai créé une carte haute résolution du réseau ferroviaire allemand à partir de
-									données d'OpenStreetMap avec Python et en les visualisant avec Matplotlib. J'ai
-									ensuite exporté le résultat dans GeoPackage pour une intégration facile dans
-									ArcGIS Pro.</p>
-								<ul class="actions">
-									<li><a href="../images/GermanyRail.png" class="button small" target="_blank">Voir la
-											carte</a></li>
-								</ul>
-							</div>
-						</article>
-
-					</div>
-				</div>
-			</section>
-
-			<!-- Six -->
-			<section id="contact">
-				<div class="container">
-					<h3>Me contacter</h3>
-					<p>Intéressé à collaborer ou avez-vous une question? N'hésitez pas à me contacter.</p>
-					<ul class="actions">
-						<li><a href="mailto:rroyjauvin@gmail.com"
-								class="button primary icon solid fa-envelope">Courriel</a></li>
-						<li><a href="https://www.linkedin.com/in/rroyjauvin" class="button icon brands fa-linkedin"
-								target="_blank">LinkedIn</a></li>
-					</ul>
-				</div>
-			</section>
-
-		</div>
-
-		<!-- Footer -->
-		<section id="footer">
-			<div class="container">
-				<ul class="copyright">
-					<li>&copy; Raphael Roy-Jauvin. Tous droits réservés.</li>
-					<li>Design : <a href="http://html5up.net">HTML5 UP</a></li>
-				</ul>
-			</div>
-		</section>
-
-	</div>
-
-	<!-- Scripts -->
-	<script src="../assets/js/jquery.min.js"></script>
-	<script src="../assets/js/jquery.scrollex.min.js"></script>
-	<script src="../assets/js/jquery.scrolly.min.js"></script>
-	<script src="../assets/js/browser.min.js"></script>
-	<script src="../assets/js/breakpoints.min.js"></script>
-	<script src="../assets/js/util.js"></script>
-	<script src="../assets/js/main.js"></script>
+  // mobile menu toggle
+  (function () {
+    var btn = document.getElementById("menuBtn");
+    var nav = document.getElementById("navList");
+    btn.addEventListener("click", function () {
+      var open = nav.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
+    });
+    // close the panel once a link is picked
+    nav.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        nav.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      });
+    });
+  })();
+</script>
 
 </body>
-
 </html>

@@ -1,367 +1,580 @@
-<!DOCTYPE HTML>
-
-<html>
-
+<!DOCTYPE html>
+<html lang="de">
 <head>
-	<title>Raphs Portfolio</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="../assets/css/main.css" />
-	<meta name="google-site-verification" content="iqchtPBEWRxiUSMsGD6myXT7NhGsQQ9EXLbA5TcbqzI" />
-	<meta name="description"
-		content="GIS-Portfolio von Raphaël Roy-Jauvin. Spezialisiert auf räumliche Analyse, Geodaten-Engineering und Fernerkundung. Standort: Victoria, BC.">
-	<meta name="keywords"
-		content="GIS, Kartografie, räumliche Analyse, Geodaten-Engineering, Victoria BC, Raphael Roy-Jauvin">
-	<meta name="author" content="Raphaël Roy-Jauvin">
-	<script defer src="https://cloud.umami.is/script.js"
-		data-website-id="6ed89953-c8a1-440d-9214-82a3a2dfa38d"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Raphaël Roy-Jauvin · GIS und Stadtplanung</title>
+  <meta name="author" content="Raphaël Roy-Jauvin">
+  <meta name="description" content="GIS-Portfolio von Raphaël Roy-Jauvin. Spezialisiert auf räumliche Analyse, kartografisches Design und Verkehrsplanung. Standort: Montréal, QC.">
+  <meta name="keywords" content="GIS, Kartografie, räumliche Analyse, Verkehrsplanung, Stadtplanung, Montreal, Raphael Roy-Jauvin">
+  <meta name="google-site-verification" content="iqchtPBEWRxiUSMsGD6myXT7NhGsQQ9EXLbA5TcbqzI">
+  <meta property="og:title" content="Raphaël Roy-Jauvin · GIS und Stadtplanung">
+  <meta property="og:description" content="Geodaten-Pipelines, Kartografie und Verkehrsplanung.">
+  <meta property="og:image" content="https://www.raphroyjauvin.ca/images/banner.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Archivo:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #16283C;
+      --paper: #FDFDFB;
+      --slate: #4E5D6C;
+      --muted: #8B96A0;
+      --line: #ECEAE3;
+      --accent: #B4432A;
+      --serif: "Newsreader", Georgia, serif;
+      --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+      --mono: "IBM Plex Mono", "Courier New", monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-padding-top: 76px; /* keeps anchored sections clear of the fixed nav */
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--slate);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.15;
+    }
+
+    .skip {
+      position: absolute;
+      left: -9999px;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 8px 16px;
+      z-index: 100;
+    }
+    .skip:focus { left: 12px; top: 12px; }
+
+    /* ---- top nav: hides on scroll down, returns on scroll up ---- */
+
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px clamp(20px, 4vw, 44px);
+      background: rgba(253, 253, 251, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      transition: transform 0.28s ease;
+    }
+    .topbar.is-hidden { transform: translateY(-100%); }
+
+    .brand {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .brand:hover { text-decoration: none; }
+
+    .nav-cluster { display: flex; align-items: center; gap: 22px; }
+
+    .nav { display: flex; align-items: center; gap: 22px; margin: 0; padding: 0; list-style: none; }
+    .nav a {
+      font-size: 13.5px;
+      letter-spacing: 0.04em;
+      color: var(--slate);
+      padding: 6px 2px;
+    }
+    .nav a:hover { color: var(--ink); text-decoration: none; }
+
+    .lang-divider { width: 1px; height: 16px; background: #DDDAD1; }
+
+    .lang { display: flex; gap: 4px; font-family: var(--mono); font-size: 11.5px; }
+    .lang a { padding: 3px 8px; border-radius: 5px; color: var(--muted); }
+    .lang a:hover { color: var(--ink); text-decoration: none; }
+    .lang a.active { background: var(--ink); color: var(--paper); }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      padding: 6px;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    /* ---- hero ---- */
+
+    .hero { position: relative; }
+
+    .hero-media {
+      position: relative;
+      height: min(56vh, 520px);
+      overflow: hidden;
+    }
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(253, 253, 251, 0) 25%,
+        rgba(253, 253, 251, 0.88) 74%,
+        var(--paper) 100%);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 980px;
+      margin: -170px auto 0;
+      padding: 0 clamp(20px, 4vw, 44px);
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+
+    .hero-inner h1 {
+      font-size: clamp(34px, 6vw, 48px);
+      margin: 0 0 10px;
+    }
+
+    .tagline {
+      font-size: clamp(15px, 2.4vw, 17px);
+      color: var(--slate);
+      margin: 0 0 20px;
+    }
+
+    .summary {
+      max-width: 640px;
+      font-size: 15px;
+      margin: 0 0 14px;
+    }
+
+    .toolbox {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--muted);
+      margin: 0 0 26px;
+    }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .btn {
+      display: inline-block;
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 11px 22px;
+      border-radius: 7px;
+    }
+    .btn:hover { text-decoration: none; }
+    .btn-primary { background: var(--ink); color: var(--paper); }
+    .btn-primary:hover { background: #223751; }
+    .btn-ghost { color: var(--ink); border: 1px solid #C9CFD6; }
+    .btn-ghost:hover { border-color: var(--ink); }
+
+    /* ---- shared section layout ---- */
+
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 64px clamp(20px, 4vw, 44px) 8px;
+    }
+    .wrap h2 { font-size: clamp(26px, 4vw, 32px); margin: 0 0 8px; }
+    .section-intro { margin: 0 0 32px; max-width: 640px; }
+
+    .anchor-alias { position: relative; top: -1px; }
+
+    /* ---- project cards ---- */
+
+    .card {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 26px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #FFFFFF;
+      margin-bottom: 18px;
+    }
+    .card-thumb img {
+      width: 100%;
+      height: 165px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      display: block;
+      background: #EEF2F5;
+    }
+    .card h3 { font-size: 20px; margin: 0 0 8px; }
+    .card p { font-size: 14.5px; margin: 0 0 12px; }
+    .card-links { font-size: 13.5px; font-weight: 500; }
+    .card-links .sep { color: #C9CFD6; margin: 0 9px; }
+
+    /* ---- story ---- */
+
+    .story-flow { max-width: 720px; }
+    .story-flow::after { content: ""; display: block; clear: both; }
+    .story-flow p { margin: 0 0 22px; font-size: 15px; }
+    .story-img {
+      width: min(240px, 42%);
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      display: block;
+    }
+    .f-right { float: right; margin: 4px 0 18px 26px; }
+    .f-left { float: left; margin: 4px 26px 18px 0; }
+
+    /* ---- resume ---- */
+
+    .resume-block h3 {
+      font-size: 21px;
+      margin: 40px 0 18px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .entry { margin: 0 0 26px; max-width: 720px; }
+    .entry-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      margin: 0 0 2px;
+    }
+    .entry-meta { font-size: 13.5px; color: var(--muted); margin: 0 0 6px; }
+    .entry p { font-size: 14.5px; margin: 0; }
+    .roles { font-style: italic; }
+
+    /* ---- contact + footer ---- */
+
+    .contact-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+
+    footer {
+      margin-top: 72px;
+      border-top: 1px solid var(--line);
+      padding: 26px clamp(20px, 4vw, 44px) 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .foot-note { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+    .foot-links { display: flex; gap: 18px; font-family: var(--mono); font-size: 11.5px; }
+    .foot-links a { color: var(--slate); }
+    .foot-links a:hover { color: var(--ink); }
+
+    /* ---- mobile ---- */
+
+    @media (max-width: 780px) {
+      .menu-btn { display: block; }
+      .nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        background: var(--paper);
+        border-bottom: 1px solid var(--line);
+        padding: 8px 20px 16px;
+      }
+      .nav.open { display: flex; }
+      .nav a { display: block; padding: 12px 2px; font-size: 15px; width: 100%; }
+      .lang-divider { display: none; }
+      .card { grid-template-columns: 1fr; }
+      .card-thumb img { height: 190px; }
+      .story-img { width: 100%; float: none; margin: 4px 0 18px; }
+      .hero-inner { margin-top: -130px; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .topbar { transition: none; }
+    }
+  </style>
 </head>
+<body>
 
-<body class="is-preload">
+<a class="skip" href="#work">Zum Inhalt springen</a>
 
-	<!-- Header -->
-	<section id="header">
-		<header>
-			<span class="image avatar"><img src="../images/avatar.jpg" alt="" /></span>
-			<h1 id="logo"><a href="#">Raphaël Roy-Jauvin</a></h1>
-			<p>Senior GIS-Techniker<br />
-				Räumliche Analyse & Data Engineering<br />
-				Victoria BC, Canada</p>
-		</header>
-		<nav id="nav">
-			<ul>
-				<li><a href="#about" class="active">Über mich</a></li>
-				<li><a href="#skills">Kompetenzen</a></li>
-				<li><a href="#mystory">Mein Werdegang</a></li>
-				<li><a href="#resume">Lebenslauf</a></li>
-				<li><a href="#recentwork">Projekte</a></li>
-				<li><a href="#contact">Kontakt</a></li>
-			</ul>
-		</nav>
-		<footer>
-			<ul class="icons">
-				<li><a href="https://www.linkedin.com/in/rroyjauvin" class="icon brands fa-linkedin"><span
-							class="label">LinkedIn</span></a></li>
-				<li><a href="https://github.com/raphroyjauvin" class="icon brands fa-github"><span
-							class="label">Github</span></a></li>
-				<li><a href="mailto:rroyjauvin@gmail.com" class="icon solid fa-envelope"><span
-							class="label">E-Mail</span></a></li>
-				<li><a href="https://www.arcgis.com/home/user.html?user=2026_gist_rroyjauvin"
-						class="icon solid fa-globe"><span class="label">ArcGIS Online</span></a></li>
-			</ul>
-			<div class="language-selector">
-				<a href="#" class="icon solid fa-language"><span class="label">Language</span></a>
-				<ul class="language-dropdown">
-					<li><a href="../index.html">🇬🇧 Eng</a></li>
-					<li><a href="../fr/index.html">🇫🇷 Fr</a></li>
-					<li><a href="index.html">🇩🇪 De</a></li>
-				</ul>
-			</div>
-		</footer>
-	</section>
+<header class="topbar" id="topbar">
+  <a class="brand" href="#top">Raphaël Roy-Jauvin</a>
+  <div class="nav-cluster">
+    <button class="menu-btn" id="menuBtn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navList">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+    <ul class="nav" id="navList">
+      <li><a href="#work">Projekte</a></li>
+      <li><a href="#story">Werdegang</a></li>
+      <li><a href="#resume">Lebenslauf</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+    </ul>
+    <span class="lang-divider" aria-hidden="true"></span>
+    <nav class="lang" aria-label="Sprache">
+      <a href="../index.html" lang="en">EN</a>
+      <a href="../fr/index.html" lang="fr">FR</a>
+      <a class="active" href="index.html" aria-current="page">DE</a>
+    </nav>
+  </div>
+</header>
 
-	<!-- Wrapper -->
-	<div id="wrapper">
+<main id="top">
 
-		<!-- Main -->
-		<div id="main">
+  <!-- hero: banner photo fades into the page, name block sits in the fade zone -->
+  <section class="hero" id="about">
+    <div class="hero-media">
+      <img src="../images/banner.jpeg" alt="Hafenblick durch eine Glasfassade">
+      <div class="hero-fade" aria-hidden="true"></div>
+    </div>
+    <div class="hero-inner">
+      <p class="eyebrow">45,50° N, 73,57° W · Montréal, QC</p>
+      <h1>Raphaël Roy-Jauvin</h1>
+      <p class="tagline">Umwelt- und Stadtplanung · Geodaten-Expertise</p>
+      <p class="summary">Willkommen! Ich bin Geodaten-Spezialist bei NOAH Intelligence, einem Climate-Tech-Startup, wo ich rohe kommunale Daten in die Pipelines hinter Hochwasserrisiko-Modellen auf Grundstücksebene verwandle. Parallel dazu absolviere ich den Master of Urban Planning an der McGill University, um meine technische Expertise auf breitere Planungsfragen anzuwenden. Melden Sie sich gerne, wenn Sie mit mir zusammenarbeiten möchten!</p>
+      <!-- delete the next line if the toolbox feels redundant -->
+      <p class="toolbox" id="skills">QGIS · ArcGIS Pro · Python (PyQGIS, ArcPy) · PostGIS · FME · ArcGIS Online</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#work">Zu meinen Projekten</a>
+        <a class="btn btn-ghost" href="../files/resume.pdf">Lebenslauf herunterladen</a>
+      </div>
+    </div>
+  </section>
 
-			<!-- One -->
-			<section id="about">
-				<div class="image main" data-position="center">
-					<img src="../images/banner.jpeg" alt="" />
-				</div>
-				<div class="container">
-					<header class="major">
-						<h2>Guten Tag/Hello/Bonjour</h2>
-						<p>Willkommen auf meinem Portfolio.<br />
-							Hier finden Sie einige meiner aktuellen Projekte.<br />
-							Bei Interesse melden Sie sich gerne!</p>
-					</header>
-					<p>Meine Leidenschaft für GIS und Fernerkundung entdeckte ich während meines Bachelorstudiums an der
-						UBC. Seitdem habe ich in verschiedenen Branchen gearbeitet — von der ökologischen
-						Landschaftsklassifizierung im Yukon bis zur Telekommunikations-Infrastrukturplanung in
-						Deutschland. Derzeit absolviere ich das Advanced Diploma in GIS am BCIT und arbeite gleichzeitig
-						als Senior GIS-Techniker bei NOAH Intelligence, einem Startup aus Toronto, wo ich Geodaten-Pipelines
-						für die Hochwasserrisiko-Modellierung auf Grundstücksebene aufbaue.</p>
-				</div>
-			</section>
+  <!-- projects: content carried over verbatim from the previous site -->
+  <section class="wrap" id="work">
+    <span class="anchor-alias" id="recentwork"></span>
+    <h2>Projekte</h2>
+    <p class="section-intro">Eine Auswahl meiner aktuellen GIS-Arbeiten und Projekte.</p>
 
-			<!-- Two -->
-			<section id="skills">
-				<div class="container">
-					<h3>Kompetenzen</h3>
-					<p>Kernkompetenzen aus verschiedenen Branchen.</p>
-					<ul class="feature-icons">
-						<li class="icon solid fa-map">ArcGIS Pro, QGIS und ArcGIS Online</li>
-						<li class="icon solid fa-search-location">Räumliche Analyse</li>
-						<li class="icon solid fa-drafting-compass">Kartografisches Design</li>
-						<li class="icon solid fa-satellite">Fernerkundung</li>
-						<li class="icon solid fa-code">Python, ArcPy, PyQGIS, SQL</li>
-						<li class="icon solid fa-language">Dreisprachig: DE / EN / FR</li>
-					</ul>
-				</div>
-			</section>
+    <article class="card">
+      <a class="card-thumb" href="../images/noahDataEngine.svg">
+        <img src="../images/noahDataEngine.svg" alt="Diagramm der Geodaten-Engine">
+      </a>
+      <div>
+        <h3>Kommunale Daten-Engine für die Hochwasserrisiko-Modellierung</h3>
+        <p>Die automatisierte Engine, die die Geodaten einer Stadt für die Hochwasserrisiko-Modellierung aufbereitet. Ein Durchlauf liest sechs offene Rohdatensätze ein und führt sie durch acht Stufen, von der Standardisierung über die Aufteilung der Netze bis zur Generierung von Hausanschlüssen, und erzeugt geprüfte, simulationsfertige Produkte für vier nachgelagerte Abnehmer: hydraulische Modellierung, Risikoanalytik, Backend-Dienste und Web-Bereitstellung. Entwickelt in PyQGIS mit cache-basierten selektiven Neuberechnungen, Fail-fast-Prüfungen, unabhängigem Audit und Monitoren, die stille Änderungen in den Quelldaten überwachen.</p>
+      </div>
+    </article>
 
-			<!-- Three -->
-			<section id="mystory">
-				<div class="container">
-					<h3>Mein Werdegang</h3>
-					<div class="story-section">
+    <article class="card">
+      <a class="card-thumb" href="https://arcg.is/1naGaD2">
+        <img src="../images/ottawaMontrealThumbnail.jpg" alt="Karte der Ottawa-Montreal-Korridoranalyse">
+      </a>
+      <div>
+        <h3>Ottawa-Montreal ALTO Hochgeschwindigkeits-Eisenbahnkorridor-Analyse</h3>
+        <p>Eine räumliche Analyse des ersten angekündigten Hochgeschwindigkeits-Eisenbahnabschnitts Kanadas. Bewertung der Bevölkerungseinzugsgebiete, der Landnutzungszusammensetzung und der Bahnhofserreichbarkeit entlang des 200 km langen Ottawa-Montreal-Korridors unter Verwendung von Zensusdaten, AAFC-Landbedeckungsdaten und OpenStreetMap.</p>
+        <p class="card-links"><a href="https://arcg.is/1naGaD2">StoryMap ansehen</a></p>
+      </div>
+    </article>
 
-						<img src="../images/yukonSelfie.JPG" alt="Yukon" class="story-image left" />
-						<p>Ursprünglich aus Quebec stammend, zog meine Familie nach Whitehorse, Yukon, als ich acht
-							Jahre alt war. Das Aufwachsen im Norden gab mir früh eine Wertschätzung für die Natur und
-							Umweltthemen, was mich schließlich zu einem Bachelor in Naturressourcenmanagement an der UBC
-							führte. Dort entdeckte ich GIS, ein Fachgebiet, das sofort mit meiner Liebe zur technischen
-							Problemlösung und zum ganzheitlichen Denken resonierte. Ich hatte das Glück, praktische
-							Erfahrung am Integrated Remote Sensing Studio der UBC zu sammeln und Doktoranden bei ihrer
-							Forschung in Fernerkundung und GIS-Analyse zu unterstützen.</p>
+    <article class="card">
+      <a class="card-thumb" href="https://arcg.is/1qjnbe">
+        <img src="../images/vancouverResponseThumbnail.jpg" alt="Karte der Netzwerkanalyse zu Rettungsdienst-Reaktionszeiten im Großraum Vancouver">
+      </a>
+      <div>
+        <h3>Rettungsdienst-Reaktionszeiten im Großraum Vancouver: eine Netzwerkanalyse</h3>
+        <p>Eine netzwerkbasierte Analyse zur Bewertung von Rettungsdienst-Reaktionszeiten und der Bevölkerungsexposition im Verhältnis zu den provinziellen Notfallstandards unter verschiedenen Verkehrsszenarien. Durch die Kombination einer GIS-Netzwerkanalyse mit meiner Fachkenntnis im Rettungsdienst habe ich die Abdeckung des Rettungsdienstes im Großraum Vancouver modelliert und quantifiziert, wie viele Einwohner innerhalb (und außerhalb) kritischer Reaktionszeitschwellen liegen.</p>
+        <p class="card-links"><a href="https://arcg.is/1qjnbe">StoryMap ansehen</a><span class="sep">·</span><a href="https://www.arcgis.com/apps/dashboards/619d724e4a764f61a81c6a699dc21f17">Dashboard ansehen</a><span class="sep">·</span><a href="../files/Ambulance_Response_Analysis_GVRD.pdf">Studie lesen</a></p>
+      </div>
+    </article>
 
-						<p>Nach dem Studium arbeitete ich für die Regierung von Yukon als GIS-Techniker im Programm zur
-							ökologischen Landschaftsklassifizierung, wobei ich sommerliche Feldarbeit mit der Erstellung
-							ökologischer Karten kombinierte.</p>
+    <article class="card">
+      <a class="card-thumb" href="../images/victoriaLRT.jpg">
+        <img src="../images/victoriaLrtThumbnail.jpg" alt="Karte der Machbarkeitsanalyse für eine Stadtbahn in Victoria">
+      </a>
+      <div>
+        <h3>Victoria LRT Machbarkeitsanalyse</h3>
+        <p>Ein Projekt zur Untersuchung möglicher Stadtbahnstrecken für den Capital Regional District. Gewichtete Überlagerungsanalyse unter Kombination von Bevölkerungsdichte, Haltestellendichte, Nähe zum E&amp;N-Bahnkorridor und Entfernung von Aktivitätszentren zur Identifizierung von Gebieten mit hohem Bedarf und Vorschlag von zwei Streckenoptionen.</p>
+        <p class="card-links"><a href="../images/victoriaLRT.jpg">Karte ansehen</a></p>
+      </div>
+    </article>
 
-						<img src="../images/munichSelfie.jpg" alt="Munich" class="story-image right" />
-						<p>Da ich gerne im Ausland leben wollte, zog ich anschließend nach München, wo ich als
-							GIS-Planer für MRK Media AG arbeitete und den Ausbau der Glasfaser-Infrastruktur in
-							Süddeutschland unterstützte.</p>
+    <article class="card">
+      <a class="card-thumb" href="../images/GermanyRail.png">
+        <img src="../images/GermanyRailThumbnail.jpg" alt="Karte des deutschen Bahnnetzes">
+      </a>
+      <div>
+        <h3>Deutsches Bahnnetz</h3>
+        <p>Ich habe eine hochauflösende Karte des deutschen Bahnnetzes erstellt, indem ich OpenStreetMap-Daten mit Python extrahiert und in Matplotlib visualisiert habe. Anschließend habe ich die bereinigten Layer als GeoPackage exportiert, damit sie sich problemlos in ArcGIS Pro weiterverwenden lassen.</p>
+        <p class="card-links"><a href="../images/GermanyRail.png">Karte ansehen</a></p>
+      </div>
+    </article>
+  </section>
 
-						<p>Nach meiner Rückkehr nach Kanada suchte ich etwas anderes: eine berufliche Herausforderung,
-							die meine Belastbarkeit testen und unmittelbare, greifbare Wirkung bieten würde. Das zog
-							mich zum Rettungsdienst. Was als Abkehr von der Schreibtischarbeit begann, wurde zu einer
-							Karriere bei BC Emergency Health Services, zuerst als Rettungssanitäter und schließlich als
-							Einsatzleiter der Disposition.</p>
+  <!-- story -->
+  <section class="wrap" id="story">
+    <span class="anchor-alias" id="mystory"></span>
+    <h2>Mein Werdegang</h2>
+    <div class="story-flow">
+      <img class="story-img f-left" src="../images/NYSelfie.jpg" alt="Auf einer Straße in New York">
+      <p>Ursprünglich aus Quebec stammend, zog meine Familie nach Whitehorse, Yukon, als ich acht Jahre alt war. Das Aufwachsen im Norden gab mir früh eine Wertschätzung für die Natur und Umweltthemen, was mich schließlich zu einem Bachelor in Naturressourcenmanagement an der UBC führte. Dort entdeckte ich GIS, ein Fachgebiet, das sofort mit meiner Liebe zur technischen Problemlösung und zum ganzheitlichen Denken resonierte. Ich hatte das Glück, praktische Erfahrung am Integrated Remote Sensing Studio der UBC zu sammeln und Doktoranden bei ihrer Forschung in Fernerkundung und GIS-Analyse zu unterstützen.</p>
+      <p>Nach dem Studium arbeitete ich für die Regierung von Yukon als GIS-Techniker im Programm zur ökologischen Landschaftsklassifizierung, wobei ich sommerliche Feldarbeit mit der Erstellung ökologischer Karten kombinierte.</p>
+      
+      <p>Da ich gerne im Ausland leben wollte, zog ich anschließend nach München, wo ich als GIS-Planer für MRK Media AG arbeitete und den Ausbau der Glasfaser-Infrastruktur in Süddeutschland unterstützte.</p>
+      
+      <p>Zurück in Kanada und auf der Suche nach einem Tempowechsel verbrachte ich einige Zeit im Rettungsdienst bei BC Emergency Health Services, wo ich aus erster Hand erlebte, wie Infrastruktur und Umweltrisiken das Leben der Menschen prägen. Als es Zeit war, hauptberuflich in die Geodatenarbeit zurückzukehren, schärfte ich meine Kenntnisse mit dem Advanced Certificate in GIS am BCIT und wechselte zu NOAH Intelligence, wo ich die Geodaten-Pipelines hinter Hochwasserrisiko-Modellen auf Grundstücksebene entwickle. Heute lebe ich in Montréal und absolviere den Master of Urban Planning an der McGill University, womit ich diese technische Grundlage auf größere Fragen richte: wie Städte wachsen und sich bewegen. Ich freue mich sehr auf das, was vor mir liegt.</p>
+    </div>
+  </section>
 
-						<img src="../images/NYSelfie.jpg" alt="New York" class="story-image right tall" />
-						<p>Der Rettungsdienst gab mir sinnvolle Arbeit, Belastbarkeit und Führungskompetenzen, aber er
-							veränderte auch meine Perspektive. Einsätze in verschiedenen Gemeinden gaben mir ein
-							unmittelbares Verständnis dafür, wie Infrastruktur und Umweltrisiken das Leben der Menschen
-							prägen. Nachdem ich im Rettungsdienst erreicht hatte, was ich mir vorgenommen hatte, war es
-							Zeit, wieder an meine GIS-Kenntnisse anzuknüpfen — diesmal mit dem Ziel, reale Risiken
-							durch Geospatial-Technologie zu verstehen und zu mindern.</p>
+  <!-- resume: carried over verbatim, to be updated later -->
+  <section class="wrap" id="resume">
+    <h2>Lebenslauf</h2>
+    <p class="section-intro"><a class="btn btn-ghost" href="../files/resume.pdf">PDF herunterladen</a></p>
 
-						<p>Ich absolviere derzeit das Advanced Diploma in GIS am BCIT und arbeite bei NOAH Intelligence,
-							wo ich die Geodatensätze vorbereite, die in Hochwasserrisiko-Modelle auf Grundstücksebene
-							einfließen. Ich freue mich sehr auf das, was vor mir liegt.</p>
+    <div class="resume-block">
+      <h3>Ausbildung</h3>
 
-					</div>
-				</div>
-			</section>
+      <div class="entry">
+        <p class="entry-title">Master of Urban Planning</p>
+        <p class="entry-meta">McGill University | Montréal, QC | 2026 – heute</p>
+      </div>
 
-			<!-- Four -->
-			<section id="resume">
-				<div class="container">
-					<h3>Lebenslauf</h3>
-					<ul class="actions">
-						<li><a href="../files/resume.pdf" class="button primary icon solid fa-download">PDF
-								herunterladen</a>
-						</li>
-					</ul>
+      <div class="entry">
+        <p class="entry-title">Advanced Certificate in Geoinformationssystemen</p>
+        <p class="entry-meta">British Columbia Institute of Technology | Online | September 2025 – Juli 2026</p>
+      </div>
 
-					<h4>Ausbildung</h4>
+      <div class="entry">
+        <p class="entry-title">Bachelor of Science — Naturressourcenmanagement</p>
+        <p class="entry-meta">University of British Columbia | Vancouver, BC | 2008–2012</p>
+        <p>Dean's Honour Roll</p>
+      </div>
 
-					<h5>Advanced Diploma in Geoinformationssystemen</h5>
-					<p><strong>British Columbia Institute of Technology</strong> | Online | Voraussichtlich 2026<br />
-						Kurse: GIS-Grundlagen, Kartografie, GIS-Programmierung, CAD für GIS, Datenbanksysteme,
-						Fernerkundung, Räumliche Analyse</p>
+      <h3>Relevante Berufserfahrung</h3>
 
-					<h5>Bachelor of Science — Naturressourcenmanagement</h5>
-					<p><strong>University of British Columbia</strong> | Vancouver, BC | 2008–2012<br />
-						Dean's Honour Roll<br />
-						Kurse: Raumplanung, GIS Grundlagen und Fortgeschritten, Fernerkundung, Kartografie</p>
+      <div class="entry">
+        <p class="entry-title">Senior GIS-Techniker | <a href="https://noahintelligence.com/">NOAH Intelligence Inc.</a> | Februar 2026 – heute</p>
+        <p>Einziger GIS-Spezialist eines Climate-Tech-Startups, verantwortlich für die kommunale Geodatenschicht hinter Hochwasserrisiko-Modellen auf Grundstücksebene, von offenen Rohdaten der Städte über automatisierte Pipelines bis zu Produkten für das hydraulische Modell und das Webportal. Entwurf und Aufbau automatisierter PyQGIS-Batch-Pipelines, die stadtweite Infrastrukturdaten in standardisierte, automatisch geprüfte Produkte umwandeln, samt Überwachung der Datenaktualität. Entwicklung einer wiederverwendbaren QGIS-Processing-Toolbox, die die hydraulischen Ingenieursregeln des Teams abbildet, von der Generierung von Hausanschlüssen bis zu einem Lückenfüll-Werkzeug, das über 98 % der fehlenden Attributwerte in kommunalen Infrastrukturnetzen auflöste. Etablierung der unternehmensweiten Geodaten-Standards, deren KBS-Konventionen und QS-Regeln heute im gesamten Team gelten. Entwurf der Hochwasserkarten-Symbologie und eines kartografischen Generalisierungs-Workflows, der Hochwasser-Layer mit Millionen von Stützpunkten auf webtaugliche Größen reduziert.</p>
+      </div>
 
-					<h4>GIS-Erfahrung</h4>
+      <div class="entry">
+        <p class="entry-title">GIS-Planer Telekommunikation | MRK Media AG | München, Deutschland | 2016–2017</p>
+        <p>Planung von Glasfaser-Infrastruktur mit GIS-basierten Werkzeugen. Erstellung von kartografischen Produkten und technischer Dokumentation für Ingenieurteams und Genehmigungsverfahren.</p>
+      </div>
 
-					<h5>Senior GIS-Techniker und Geospatial-Architekt | <a href="https://www.noahintelligence.com" target="_blank">Noah Intelligence Inc.</a> | Telearbeit | 2026–heute</h5>
-					<p>Vorbereitung und Validierung großflächiger kommunaler Geodatensätze für die
-						Hochwasserrisiko-Modellierung auf Grundstücksebene mittels gekoppelter 1D/2D hydraulischer
-						Simulation (InfoWorks ICM). Entwicklung automatisierter Verarbeitungsworkflows in QGIS und
-						ArcPy zur Sicherstellung der Datenintegrität über mehrere kommunale Untersuchungsgebiete.
-						Entwurf und Bereitstellung eines benutzerdefinierten Python-Tools, das 98 %+ der fehlenden
-						Attributwerte in kommunalen Infrastrukturnetzen auflöste und damit wochenlange manuelle
-						Datenableitung eliminierte. Verfassen von Vorschlägen zur GIS-Datenverwaltung und
-						Pipeline-Optimierung zur Verbesserung der Effizienz und Skalierbarkeit.</p>
+      <div class="entry">
+        <p class="entry-title">GIS-Spezialist Landschaftsklassifizierung | Regierung von Yukon | 2012–2013</p>
+        <p>Pflege von Geodatenbanken und Erstellung thematischer ökologischer Karten. Räumliche Analyse zur Landschaftsklassifizierung. Teilnahme an Feldarbeit und ökologischer Datenerhebung.</p>
+      </div>
 
-					<h5>BC Emergency Health Services | Victoria, BC | 2017–heute</h5>
-					<p><em>Einsatzleiter Disposition (2024–heute) | Medizinischer Notfalldisponent (2018–2024) |
-							Rettungssanitäter (2017–2018)</em><br />
-						Operative Leitung eines 12-köpfigen Dispositionsteams. Koordination von behördenübergreifenden
-						Einsätzen auf Vancouver Island mittels GIS-gestützter Dispositionssoftware und
-						Echtzeit-Lageanalyse. Als Rettungssanitäter Einsatz bei medizinischen Notfällen mit
-						Patientenbeurteilung, Behandlung und Transport.</p>
+      <div class="entry">
+        <p class="entry-title">Assistent für Fernerkundung und GIS | University of British Columbia | 2008–2012</p>
+        <p>Unterstützung von Doktoranden bei der Fernerkundungsforschung. Mitautor einer <a href="../files/coops_royjauvin_study.pdf">begutachteten Studie</a> über klimabedingte Verschiebungen von Baumarten-Verbreitungsgebieten. Erstellung von Habitatkarten unter verschiedenen Klimaszenarien.</p>
+      </div>
 
-					<h5>GIS-Planer Telekommunikation | MRK Media AG | München, Deutschland | 2016–2017</h5>
-					<p>Planung von Glasfaser-Infrastruktur mit GIS-basierten Werkzeugen. Erstellung von kartografischen
-						Produkten und technischer Dokumentation für Ingenieurteams und Genehmigungsverfahren.</p>
+      <h3>Weitere Berufserfahrung</h3>
 
-					<h5>GIS-Spezialist Landschaftsklassifizierung | Regierung von Yukon | 2012–2013</h5>
-					<p>Pflege von Geodatenbanken und Erstellung thematischer ökologischer Karten. Räumliche Analyse zur
-						Landschaftsklassifizierung. Teilnahme an Feldarbeit und ökologischer Datenerhebung.</p>
+      <div class="entry">
+        <p class="entry-title">BC Emergency Health Services | Victoria, BC | 2017–2026</p>
+        <p class="entry-meta roles">Einsatzleiter Disposition (2024–2026) | Medizinischer Notfalldisponent (2018–2024) | Rettungssanitäter (2017–2018)</p>
+        <p>Operative Leitung eines 12-köpfigen Dispositionsteams. Koordination von behördenübergreifenden Einsätzen auf Vancouver Island mittels GIS-gestützter Dispositionssoftware und Echtzeit-Lageanalyse. Als Rettungssanitäter Einsatz bei medizinischen Notfällen mit Patientenbeurteilung, Behandlung und Transport.</p>
+      </div>
 
-					<h5>Assistent für Fernerkundung und GIS | University of British Columbia | 2008–2012</h5>
-					<p>Unterstützung von Doktoranden bei der Fernerkundungsforschung. <a
-							href="../files/coops_royjauvin_study.pdf" target="_blank">Mitautor einer begutachteten
-							Studie über klimabedingte Verschiebungen von Baumarten.</a> Erstellung von Habitatkarten
-						unter verschiedenen Klimaszenarien.</p>
+      <h3>Weitere Erfolge</h3>
 
-					<h4>Weitere Erfolge</h4>
+      <div class="entry">
+        <p class="entry-title">C1-Zertifikat Deutsch</p>
+        <p class="entry-meta">Goethe-Institut | Montreal, QC | 2025</p>
+      </div>
 
-					<p><strong>FME Form Basic und FME Integrate Spatial Data</strong><br />
-						Safe Software | Dezember 2025</p>
+      <div class="entry">
+        <p class="entry-title">Rettungssanitäter-Zertifizierung</p>
+        <p class="entry-meta">Justice Institute of British Columbia | Victoria, BC | 2016</p>
+      </div>
 
-					<p><strong>C1-Zertifikat Deutsch</strong><br />
-						Goethe-Institut | Montreal, QC | 2025</p>
+      <div class="entry">
+        <p class="entry-title">Yukon Commissioner's Award for Bravery</p>
+        <p class="entry-meta">Whitehorse, Yukon | 2013</p>
+        <p>Ausgezeichnet für Hilfeleistung bei einem Hubschrauberunfall in abgelegener Region trotz eigener schwerer Verletzungen.</p>
+      </div>
+    </div>
+  </section>
 
-					<p><strong>Rettungssanitäter-Zertifizierung</strong><br />
-						Justice Institute of British Columbia | Victoria, BC | 2016</p>
+  <section class="wrap" id="contact">
+    <h2>Kontakt</h2>
+    <p class="section-intro">Interesse an einer Zusammenarbeit oder Fragen? Melden Sie sich gerne.</p>
+    <div class="contact-ctas">
+      <a class="btn btn-primary" href="mailto:rroyjauvin@gmail.com">E-Mail schreiben</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/rroyjauvin">LinkedIn</a>
+    </div>
+  </section>
 
-					<p><strong>Yukon Commissioner's Award for Bravery</strong><br />
-						Whitehorse, Yukon | 2013 <br />
-						Ausgezeichnet für Hilfeleistung bei einem Hubschrauberunfall in abgelegener Region trotz eigener
-						schwerer Verletzungen.</p>
+</main>
 
-				</div>
-			</section>
-			<!-- Five -->
-			<section id="recentwork">
-				<div class="container">
-					<h3>Projekte</h3>
-					<p>Eine Auswahl meiner aktuellen GIS-Arbeiten.</p>
-					<div class="features">
+<footer>
+  <span class="foot-note">© Raphaël Roy-Jauvin. Alle Rechte vorbehalten.</span>
+  <nav class="foot-links" aria-label="Profile">
+    <a href="https://www.linkedin.com/in/rroyjauvin">LinkedIn</a>
+    <a href="https://github.com/raphroyjauvin">GitHub</a>
+    <a href="mailto:rroyjauvin@gmail.com">E-Mail</a>
+    <a href="https://www.arcgis.com/home/user.html?user=2026_gist_rroyjauvin">ArcGIS Online</a>
+  </nav>
+</footer>
 
-						<article>
-							<a href="../images/noahPipeline.svg" class="image" target="_blank"><img
-									src="../images/noahPipeline.svg"
-									alt="Geodaten-Pipeline für die Hochwasserrisiko-Modellierung" /></a>
-							<div class="inner">
-								<h4>Geodaten-Pipeline für die Hochwasserrisiko-Modellierung auf Grundstücksebene</h4>
-								<p>Bei NOAH Intelligence bereite ich kommunale Geodatensätze für gekoppelte 1D/2D
-									hydraulische Hochwassersimulationen vor und validiere sie. Die Pipeline umfasst
-									räumliche Verarbeitung und manuelle Geometriereparatur in QGIS, automatisierte
-									Attribut-Lückenfüllung über benutzerdefinierte ArcPy-Skript-Tools und iterative
-									Validierung zur Erzeugung simulationsfertiger Ausgaben. Ein von mir entwickeltes
-									Python-Tool löst 98 %+ der fehlenden Attributwerte in kommunalen
-									Infrastrukturnetzen auf und eliminiert damit wochenlange manuelle
-									Datenableitung.</p>
-							</div>
-						</article>
+<script>
+  // nav: hide on scroll down, bring back on scroll up
+  (function () {
+    var bar = document.getElementById("topbar");
+    var lastY = 0;
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY;
+      if (y > lastY + 4 && y > 90) {
+        bar.classList.add("is-hidden");
+      } else if (y < lastY - 4 || y <= 90) {
+        bar.classList.remove("is-hidden");
+      }
+      lastY = y;
+    }, { passive: true });
+  })();
 
-						<article>
-							<a href="https://arcg.is/1naGaD2" class="image" target="_blank"><img
-									src="../images/ottawaMontrealThumbnail.jpg"
-									alt="Ottawa Montreal Rail Analysis" /></a>
-							<div class="inner">
-								<h4>Ottawa-Montreal ALTO Hochgeschwindigkeits-Eisenbahnkorridor-Analyse</h4>
-								<p>Eine räumliche Analyse des ersten angekündigten
-									Hochgeschwindigkeits-Eisenbahnabschnitts Kanadas. Bewertung der
-									Bevölkerungseinzugsgebiete, der Landnutzungszusammensetzung und der
-									Bahnhofserreichbarkeit entlang des 200 km langen Ottawa-Montreal-Korridors unter
-									Verwendung von Zensusdaten, AAFC-Landbedeckungsdaten und OpenStreetMap.</p>
-								<ul class="actions">
-									<li><a href="https://arcg.is/1naGaD2" class="button small" target="_blank">
-											StoryMap ansehen</a></li>
-								</ul>
-							</div>
-						</article>
-						<article>
-							<a href="https://arcg.is/1qjnbe" class="image" target="_blank"><img
-									src="../images/vancouverResponseThumbnail.jpg"
-									alt="GVRD Network Analysis" /></a>
-							<div class="inner">
-								<h4>Rettungsdienst-Reaktionszeiten im Großraum Vancouver: Netzwerkanalyse</h4>
-								<p>Eine netzwerkbasierte Analyse zur Bewertung von Rettungsdienst-Reaktionszeiten
-									und der Bevölkerungsexposition im Verhältnis zu den provinziellen
-									Notfallstandards. Durch die Kombination einer GIS-Netzwerkanalyse mit meiner
-									Fachkenntnis im Rettungsdienst habe ich die Abdeckung des Rettungsdienstes im
-									Großraum Vancouver modelliert und quantifiziert, wie viele Einwohner innerhalb
-									(und außerhalb) kritischer Reaktionszeitschwellen liegen.</p>
-								<ul class="actions">
-									<li><a href="https://arcg.is/1qjnbe" class="button small" target="_blank">StoryMap
-											ansehen</a></li>
-									<li><a href="https://www.arcgis.com/apps/dashboards/619d724e4a764f61a81c6a699dc21f17"
-											class="button small" target="_blank">Dashboard ansehen</a></li>
-									<li><a href="../files/Ambulance_Response_Analysis_GVRD.pdf" class="button small"
-											target="_blank">Forschung lesen</a></li>
-								</ul>
-							</div>
-						</article>
-						<article>
-							<a href="../images/victoriaLRT.jpg" class="image" target="_blank"><img
-									src="../images/victoriaLrtThumbnail.jpg"
-									alt="Victoria LRT Machbarkeitsanalyse" /></a>
-							<div class="inner">
-								<h4>Victoria LRT Machbarkeitsanalyse</h4>
-								<p>Ein Projekt zur Untersuchung möglicher Stadtbahnstrecken für die Capital
-									Regional District. Gewichtete Überlagerungsanalyse unter Kombination von
-									Bevölkerungsdichte, Haltestellendichte, Nähe zum E&N-Bahnkorridor und Entfernung von
-									Aktivitätszentren zur Identifizierung von Gebieten mit hohem Bedarf und Vorschlag
-									von zwei Streckenoptionen.</p>
-								<ul class="actions">
-									<li><a href="../images/victoriaLRT.jpg" class="button small" target="_blank">Karte
-											ansehen</a></li>
-								</ul>
-							</div>
-						</article>
-
-						<article>
-							<a href="../images/GermanyRail.png" class="image" target="_blank"><img
-									src="../images/GermanyRailThumbnail.jpg"
-									alt="Deutsches Bahnnetz" /></a>
-							<div class="inner">
-								<h4>Deutsches Bahnnetz</h4>
-								<p>Ich habe eine hochauflösende Karte des deutschen Bahnnetzes erstellt, indem ich
-									OpenStreetMap-Daten mit Python extrahiert und in Matplotlib visualisiert habe.
-									Anschließend habe ich die bereinigten Layer als GeoPackage exportiert, damit sie
-									sich problemlos in ArcGIS Pro weiterverwenden lassen.</p>
-								<ul class="actions">
-									<li><a href="../images/GermanyRail.png" class="button small" target="_blank">Karte
-											ansehen</a></li>
-								</ul>
-							</div>
-						</article>
-
-					</div>
-				</div>
-			</section>
-
-			<!-- Six -->
-			<section id="contact">
-				<div class="container">
-					<h3>Kontakt</h3>
-					<p>Interesse an einer Zusammenarbeit oder Fragen? Melden Sie sich gerne.</p>
-					<ul class="actions">
-						<li><a href="mailto:rroyjauvin@gmail.com"
-								class="button primary icon solid fa-envelope">E-Mail</a></li>
-						<li><a href="https://www.linkedin.com/in/rroyjauvin" class="button icon brands fa-linkedin"
-								target="_blank">LinkedIn</a></li>
-					</ul>
-				</div>
-			</section>
-
-		</div>
-
-		<!-- Footer -->
-		<section id="footer">
-			<div class="container">
-				<ul class="copyright">
-					<li>&copy; Raphael Roy-Jauvin. Alle Rechte vorbehalten.</li>
-					<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-				</ul>
-			</div>
-		</section>
-
-	</div>
-
-	<!-- Scripts -->
-	<script src="../assets/js/jquery.min.js"></script>
-	<script src="../assets/js/jquery.scrollex.min.js"></script>
-	<script src="../assets/js/jquery.scrolly.min.js"></script>
-	<script src="../assets/js/browser.min.js"></script>
-	<script src="../assets/js/breakpoints.min.js"></script>
-	<script src="../assets/js/util.js"></script>
-	<script src="../assets/js/main.js"></script>
+  // mobile menu toggle
+  (function () {
+    var btn = document.getElementById("menuBtn");
+    var nav = document.getElementById("navList");
+    btn.addEventListener("click", function () {
+      var open = nav.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+      btn.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
+    });
+    // close the panel once a link is picked
+    nav.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        nav.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      });
+    });
+  })();
+</script>
 
 </body>
-
 </html>
